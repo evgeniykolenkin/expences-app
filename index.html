@@ -16,14 +16,46 @@
     <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
-    <section class="expences">
+    <section class="expenses">
       <h1>Учет расходов</h1>
-      <div class="expences__data">
-        <div class="expences__input">
-          <input type="num" />
-          <p>руб.</p>
+      <div class="expenses__content">
+        <div class="expenses__content-main">
+          <div class="expenses__input">
+            <input type="number" min="1" class="js-expenses__input" />
+            <p class="rub"></p>
+          </div>
+          <select class="js-category__select category__select">
+            <option hidden disabled selected value="Категория">
+              Категория
+            </option>
+            <option value="Продукты">Продукты</option>
+            <option value="Кафе">Кафе</option>
+            <option value="Квартира">Квартира</option>
+            <option value="Авто">Авто</option>
+          </select>
+          <div class="expenses__limit">
+            <h2 class="expenses__limit-title">Лимит:&nbsp</h2>
+            <p class="expenses__limit-value">10000</p>
+          </div>
+          <div class="expenses__total">
+            <h2>Всего:&nbsp</h2>
+            <p class="js-expenses__total-value expenses__total-value">0</p>
+          </div>
+          <div class="expenses__status">
+            <h2>Статус:&nbsp</h2>
+            <p class="js-expenses__status expenses__status-inner">все хорошо</p>
+          </div>
+          <button class="js-clear__btn clear__btn">Сбросить расходы</button>
         </div>
-        <button class="expences__btn-add">Добавить</button>
+        <div class="expenses__content-history">
+          <button class="js-expenses__btn-add expenses__btn-add">
+            Добавить
+          </button>
+          <div class="expenses__history">
+            <h2>История:</h2>
+            <ol class="js-expenses__history-list"></ol>
+          </div>
+        </div>
       </div>
     </section>
     <script src="script/main.js"></script>

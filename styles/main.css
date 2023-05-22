@@ -11,10 +11,12 @@ body {
 
 ol {
   list-style: decimal;
+  list-style-position: inside;
 }
 
 input,
-button {
+button,
+select {
   font-family: inherit;
 }
 
@@ -23,7 +25,7 @@ h2 {
   font-weight: 700;
 }
 
-.expences {
+.expenses {
   display: flex;
   flex-direction: column;
   row-gap: 41px;
@@ -33,15 +35,22 @@ h2 {
   box-sizing: border-box;
 }
 
-.expences__data {
+.expenses__content {
   display: flex;
-  gap: 28px;
+  gap: 30px;
 }
 
-.expences__input {
+.expenses__content-main,
+.expenses__content-history {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.expenses__input {
   display: flex;
   justify-content: space-between;
-  width: 484px;
+  /* width: 484px; */
   padding: 10px 17px;
   border: 1px solid #000000;
 }
@@ -58,7 +67,58 @@ input:focus {
   outline: none;
 }
 
-.expences__btn-add {
+.category__select {
+  font-size: 32px;
+  line-height: 39px;
+  font-weight: 400;
+  padding: 10px 0 10px 22px;
+}
+
+.expenses__limit,
+.expenses__total,
+.expenses__status {
+  display: flex;
+}
+
+.stats {
+  display: flex;
+}
+
+.expenses__status-inner {
+  color: #039000;
+}
+
+.status__approved {
+  color: #039000;
+}
+
+.status__rejected {
+  color: #fc0000;
+}
+
+.rub::after {
+  content: " руб.";
+}
+
+.clear__btn {
+  width: 100%;
+  padding: 11px;
+  background-color: #fc0000;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 39px;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+.expenses__history {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.expenses__btn-add {
   width: 370px;
   padding: 10px 110px;
   box-sizing: border-box;
