@@ -45,12 +45,12 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 30px;
+  width: calc(50% - 15px);
 }
 
 .expenses__input {
   display: flex;
   justify-content: space-between;
-  /* width: 484px; */
   padding: 10px 17px;
   border: 1px solid #000000;
 }
@@ -72,16 +72,24 @@ input:focus {
   line-height: 39px;
   font-weight: 400;
   padding: 10px 0 10px 22px;
+  border: 1px solid #000000;
 }
 
 .expenses__limit,
 .expenses__total,
 .expenses__status {
+  position: relative;
   display: flex;
+  gap: 10px;
 }
 
-.stats {
-  display: flex;
+.change__limit-btn {
+  position: absolute;
+  right: 0;
+  top: -4px;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
 }
 
 .expenses__status-inner {
@@ -100,16 +108,20 @@ input:focus {
   content: " руб.";
 }
 
-.clear__btn {
+.btn {
   width: 100%;
-  padding: 11px;
-  background-color: #fc0000;
+  padding: 10px;
+  box-sizing: border-box;
   font-weight: 400;
   font-size: 32px;
   line-height: 39px;
   color: #ffffff;
   border: none;
   cursor: pointer;
+}
+
+.expenses__clear-btn {
+  background-color: #fc0000;
 }
 
 .expenses__history {
@@ -118,15 +130,51 @@ input:focus {
   gap: 15px;
 }
 
-.expenses__btn-add {
-  width: 370px;
-  padding: 10px 110px;
-  box-sizing: border-box;
-  font-weight: 400;
-  font-size: 32px;
-  line-height: 39px;
-  color: #ffffff;
+.expenses__add-btn {
   background: #0094ff;
-  border: none;
-  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .expenses__content {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  body {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  input {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .expenses__input {
+    padding: 5px;
+  }
+
+  .category__select {
+    font-size: 24px;
+    line-height: 30px;
+    padding: 5px 0 5px 11px;
+  }
+
+  .expenses__content-main,
+  .expenses__content-history {
+    gap: 20px;
+    width: 100%;
+  }
+
+  .change__limit-btn {
+    top: -2px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .btn {
+    padding: 5px;
+    font-size: 24px;
+    line-height: 30px;
+  }
 }

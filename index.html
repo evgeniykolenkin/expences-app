@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="resources/favicon.ico"
+      type="image/x-icon"
+    />
     <title>Expences App</title>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -28,14 +32,21 @@
             <option hidden disabled selected value="Категория">
               Категория
             </option>
+            <option value="Малышка">Малышка</option>
+            <option value="Кот">Кот</option>
             <option value="Продукты">Продукты</option>
-            <option value="Кафе">Кафе</option>
+            <option value="Табак">Табак</option>
+            <option value="Кредиты">Кредиты</option>
             <option value="Квартира">Квартира</option>
-            <option value="Авто">Авто</option>
           </select>
           <div class="expenses__limit">
             <h2 class="expenses__limit-title">Лимит:&nbsp</h2>
             <p class="expenses__limit-value">10000</p>
+            <img
+              class="js-change__limit-btn change__limit-btn"
+              src="resources/change-limit-btn.png"
+              alt="кнопка редактирования"
+            />
           </div>
           <div class="expenses__total">
             <h2>Всего:&nbsp</h2>
@@ -45,10 +56,12 @@
             <h2>Статус:&nbsp</h2>
             <p class="js-expenses__status expenses__status-inner">все хорошо</p>
           </div>
-          <button class="js-clear__btn clear__btn">Сбросить расходы</button>
+          <button class="js-expenses__clear-btn expenses__clear-btn btn">
+            Сбросить расходы
+          </button>
         </div>
         <div class="expenses__content-history">
-          <button class="js-expenses__btn-add expenses__btn-add">
+          <button class="js-expenses__add-btn expenses__add-btn btn">
             Добавить
           </button>
           <div class="expenses__history">

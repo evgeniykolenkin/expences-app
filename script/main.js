@@ -1,28 +1,55 @@
 // Объявление переменных - Строковых констант
 const STATUS_IN_LIMIT = "всё хорошо";
 const STATUS_OUT_OF_LIMIT = "всё плохо";
+const CHANGE_LIMIT_VALUE = "Новый лимит";
+const STORAGE_LIMIT = "limit";
+const STORAGE_EXPENSES = "expenses";
 
 // Объявление переменных - ссылок на html элементы
 
 const inputNode = document.querySelector(".js-expenses__input");
 const categorySelectNode = document.querySelector(".js-category__select");
-const addButtonNode = document.querySelector(".js-expenses__btn-add");
-const clearButtonNode = document.querySelector(".js-clear__btn");
+const addButtonNode = document.querySelector(".js-expenses__add-btn");
+const clearButtonNode = document.querySelector(".js-expenses__clear-btn");
+const changeLimitButtonNode = document.querySelector(".js-change__limit-btn");
 const totalValueNode = document.querySelector(".js-expenses__total-value");
 const statusNode = document.querySelector(".js-expenses__status");
 const historyList = document.querySelector(".js-expenses__history-list");
 
 // Получает лимит из элемента html
-
+// если есть данные в Storage, берём их оттуда
 const limitNode = document.querySelector(".expenses__limit-value");
-const limit = parseInt(limitNode.innerText);
+let limit = parseInt(limitNode.innerText);
 limitNode.className = "rub";
+
+function initLimit() {
+  const limitFromStorage = parseInt(localStorage.getItem(STORAGE_LIMIT));
+  if (!limitFromStorage) {
+    return;
+  }
+  limitNode.innerText = limitFromStorage;
+  limit = parseInt(limitNode.innerText);
+}
+
+initLimit();
 
 // Объявление нашей основной переменной
 // при запуске она содержит в себе пустой массив,
 // который мы пополняем по нажатию на кнопку Добавить
-
+// если есть данные в Storage, берём их оттуда
 let expenses = [];
+
+function initExpenses() {
+  const expensesFromStorageString = localStorage.getItem(STORAGE_EXPENSES);
+  const expensesFromStorage = JSON.parse(expensesFromStorageString);
+
+  if (Array.isArray(expensesFromStorage)) {
+    expenses = expensesFromStorage;
+  }
+  render();
+}
+
+initExpenses();
 
 // -----------------ФУНКЦИИ--------------------
 
@@ -43,7 +70,7 @@ function getTotal() {
 
 function renderStatus() {
   // создаем переменную total и записываем в нее результат выполнения getTotal
-  const total = getTotal(expenses);
+  const total = getTotal();
   totalValueNode.innerText = total;
   totalValueNode.className = "rub";
 
@@ -112,11 +139,17 @@ const clearInput = (input) => {
   inputNode.value = "";
 };
 
+function saveExpensesToStorage() {
+  const expensesString = JSON.stringify(expenses);
+  localStorage.setItem(STORAGE_EXPENSES, expensesString);
+}
+
 // функция - обработчик, которая вызывается при нажатии на кнопку Добавить
-function addButtonHanler() {
+function addButtonHandler() {
   // сохраняем в переменную currentAmount введенную сумму
   const currentAmount = getExpenseFromUser();
   if (!currentAmount) {
+    alert("Трата отсутствует");
     return;
   }
 
@@ -130,11 +163,12 @@ function addButtonHanler() {
 
   // из полученных переменных собираем объект newExpense
   // который состоит мз двух полей - amount(currentAmount)
-  // и categoty(currentCategory)
+  // и category(currentCategory)
   const newExpense = { amount: currentAmount, category: currentCategory };
 
   // Добавляем новый расход в массив расходов
   expenses.push(newExpense);
+  saveExpensesToStorage();
 
   // переписываем интерфейс
   render();
@@ -146,9 +180,35 @@ function addButtonHanler() {
 // функция-обработчик кнопки Сбросить расходы
 function clearButtonHandler() {
   expenses = [];
+  localStorage.removeItem(STORAGE_EXPENSES);
+  render();
+}
+
+// функция-обработчик(хендлер) кнопки изменения лимита
+function changeLimitHandler() {
+  // в переменную newLimit мы записываем результат изменения функции prompt,
+  // которой передаём параметр "новый лимит"
+  // prompt вызывает встроенную в браузер модалку с импутом
+  // а возвращает то, что ввёл в импут пользователь
+  const newLimit = prompt(CHANGE_LIMIT_VALUE);
+  const newLimitValue = parseInt(newLimit);
+
+  if (!newLimitValue) {
+    alert("Лимит должен быть числом");
+    return;
+  }
+
+  // прописываем в html новое значение лимита
+  limitNode.innerText = newLimitValue;
+  // а также прописываем это значение в нашу переменную с лимитом
+  limit = newLimitValue;
+  localStorage.setItem(STORAGE_LIMIT, newLimitValue);
+
+  // обновляем интерфейс
   render();
 }
 
 // привязка функци-обработчиков к кнопкам
-addButtonNode.addEventListener("click", addButtonHanler);
+addButtonNode.addEventListener("click", addButtonHandler);
 clearButtonNode.addEventListener("click", clearButtonHandler);
+changeLimitButtonNode.addEventListener("click", changeLimitHandler);
