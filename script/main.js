@@ -94,14 +94,14 @@ function renderHistory() {
   // expenses.forEach((expense) => {}
   expenses.forEach(function (expense) {
     // coздание элемента li(он пока только в памяти создан)
-    const histotyItem = document.createElement("li");
-    histotyItem.className = "rub";
+    const historyItem = document.createElement("li");
+    historyItem.className = "rub";
 
     // Шаблонная строка категория - сумма
-    histotyItem.innerText = `${expense.category} - ${expense.amount}`;
+    historyItem.innerText = `${expense.category} - ${expense.amount}`;
 
     // вставляем li из памяти в конец списка истории
-    historyList.appendChild(histotyItem);
+    historyList.appendChild(historyItem);
   });
 }
 
@@ -115,7 +115,7 @@ function render() {
 
 // Вовращает введенную пользователем сумму
 function getExpenseFromUser() {
-  return parseInt(inputNode.value);
+  return parseInt(inputNode.value.replace(" ", ""));
 }
 
 // Возвращает выбранную категорию
@@ -136,7 +136,7 @@ function getSelectedCategory() {
 
 // 3. вариант со стрелочной функцией(самый популярный)
 const clearInput = (input) => {
-  inputNode.value = "";
+  input.value = "";
 };
 
 function saveExpensesToStorage() {
@@ -190,7 +190,7 @@ function changeLimitHandler() {
   // которой передаём параметр "новый лимит"
   // prompt вызывает встроенную в браузер модалку с импутом
   // а возвращает то, что ввёл в импут пользователь
-  const newLimit = prompt(CHANGE_LIMIT_VALUE);
+  const newLimit = prompt(CHANGE_LIMIT_VALUE).replace(" ", "");
   const newLimitValue = parseInt(newLimit);
 
   if (!newLimitValue) {
